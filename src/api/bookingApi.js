@@ -1,4 +1,5 @@
-const BASE_URL = "http://localhost:5000/api";
+const BASE_URL = import.meta.env.PUBLIC_API_URL;
+
 
 export async function getService(serviceKey) {
   const res = await fetch(`${BASE_URL}/services/${serviceKey}`);
