@@ -37,7 +37,10 @@ export default function BookingApp({ serviceData }) {
           <div className="lg:col-span-2 space-y-6">
 
             {/* Overview bar */}
-            <div className="border rounded p-4 bg-gray-50">
+            <div
+              className="border rounded p-4"
+              style={{ backgroundColor: "var(--color-bg)", color: "var(--color-text)" }}
+            >
               <p><strong>Date:</strong> {date}</p>
               <p><strong>Time:</strong> {slot}</p>
             </div>
@@ -67,26 +70,23 @@ export default function BookingApp({ serviceData }) {
 
           {/* LEFT */}
           <div className="lg:col-span-2">
-           <OccasionSelector
-  value={occasion}
-  onChange={setOccasion} // now it will be {name, price}
-/>
+            <OccasionSelector
+              value={occasion}
+              onChange={setOccasion} // now it will be {name, price}
+            />
           </div>
 
           {/* RIGHT */}
           <div>
- 
-<BookingSummary
-  serviceData={serviceData}
-  date={date}
-  selectedSlot={slot}
-  formData={userInfo}
-  occasion={occasion}
-  buttonLabel="Next"
-  onProceed={() => alert("Final step reached or submit form")}
-/>
-
-
+            <BookingSummary
+              serviceData={serviceData}
+              date={date}
+              selectedSlot={slot}
+              formData={userInfo}
+              occasion={occasion}
+              buttonLabel="Next"
+              onProceed={() => alert("Final step reached or submit form")}
+            />
           </div>
         </div>
       )}

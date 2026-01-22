@@ -17,17 +17,17 @@ export default function BookingSummary({
   const isOccasionReady = occasion;
 
   const canProceed =
-    buttonLabel === "Proceed"
-      ? isFormReady
-      : isOccasionReady;
+    buttonLabel === "Proceed" ? isFormReady : isOccasionReady;
 
   const servicePrice = serviceData?.price || 1999;
   const occasionPrice = occasion?.price || 0;
   const totalPrice = servicePrice + occasionPrice;
 
   return (
-    <div className="border rounded p-5 sticky top-6 space-y-4">
-
+    <div
+      className="border rounded p-5 sticky top-6 space-y-4"
+      style={{ backgroundColor: "var(--color-bg)", color: "var(--color-text)" }}
+    >
       <h3 className="font-semibold text-lg">Booking Summary</h3>
 
       <p><strong>Date:</strong> {date || "-"}</p>
@@ -52,11 +52,13 @@ export default function BookingSummary({
       <button
         disabled={!canProceed}
         onClick={onProceed}
-        className={`w-full py-3 rounded text-lg ${
-          canProceed
-            ? "bg-black text-white"
-            : "bg-gray-300 text-gray-500 cursor-not-allowed"
-        }`}
+        style={{
+          backgroundColor: canProceed
+            ? "var(--color-primary)"
+            : "var(--color-hover)",
+          color: canProceed ? "var(--color-secondary)" : "var(--color-text)",
+        }}
+        className="w-full py-3 rounded text-lg"
       >
         {buttonLabel}
       </button>

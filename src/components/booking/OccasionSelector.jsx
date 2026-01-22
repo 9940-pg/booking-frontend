@@ -1,34 +1,56 @@
 const occasions = [
-  { name: "Birthday", price: 500 },
-  { name: "Anniversary", price: 700 },
-  { name: "Proposal", price: 1000 },
-  { name: "Friends Hangout", price: 300 },
-  { name: "Surprise", price: 800 },
+  { name: "Birthday", price: 599, label: "Decor + Celebration", icon: "https://bnbtplstorageaccount.blob.core.windows.net/addons/decoration/birthday.png" },
+  { name: "Anniversary", price: 599, label: "Romantic Decor", icon: "https://bnbtplstorageaccount.blob.core.windows.net/addons/decoration/anniversary.png" },
+  { name: "Bride To Be", price: 699, label: "Special Setup", icon: "https://bnbtplstorageaccount.blob.core.windows.net/addons/decoration/bridetobe.png" },
+  { name: "Groom To Be", price: 699, label: "Special Setup", icon: "https://bnbtplstorageaccount.blob.core.windows.net/addons/decoration/groomtobe.png" },
+  { name: "Mom To Be", price: 649, label: "Cute Setup", icon: "https://bnbtplstorageaccount.blob.core.windows.net/addons/decoration/momtobe.png" },
+  { name: "Farewell", price: 549, label: "Group Decor", icon: "https://bnbtplstorageaccount.blob.core.windows.net/addons/decoration/farewell.png" },
+  { name: "Casual Date", price: 499, label: "Romantic Setup", icon: "https://bnbtplstorageaccount.blob.core.windows.net/addons/decoration/casualdate.png" },
+  { name: "Wedding Proposal", price: 799, label: "Grand Setup", icon: "https://bnbtplstorageaccount.blob.core.windows.net/addons/decoration/weddingproposal.png" },
+  { name: "Love Proposal", price: 799, label: "Romantic Decor", icon: "https://bnbtplstorageaccount.blob.core.windows.net/addons/decoration/loveproposal.png" },
+  { name: "Baby Shower", price: 649, label: "Cute Theme", icon: "https://bnbtplstorageaccount.blob.core.windows.net/addons/decoration/babyshower.png" },
+  { name: "Congratulations", price: 599, label: "Celebration Decor", icon: "https://bnbtplstorageaccount.blob.core.windows.net/addons/decoration/congratulations.png" },
 ];
-
 
 export default function OccasionSelector({ value, onChange }) {
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-semibold">Select Occasion</h2>
+      <h2 className="text-xl font-semibold" style={{ color: "var(--color-text)" }}>
+        Select Occasion
+      </h2>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+      {/* Grid with 4 columns always */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {occasions.map((item) => (
           <button
             key={item.name}
-            onClick={() => onChange(item)} // pass entire object now
-            className={`border p-4 rounded text-center ${
-              value?.name === item.name
-                ? "bg-black text-white"
-                : "hover:border-black"
-            }`}
+            onClick={() => onChange(item)}
+            style={{
+              backgroundColor:
+                value?.name === item.name ? "var(--color-primary)" : "var(--color-bg)",
+              color:
+                value?.name === item.name ? "var(--color-secondary)" : "var(--color-text)",
+              borderColor: "var(--color-text)",
+            }}
+            className={`border p-4 rounded text-center flex flex-col items-center
+              transition-all duration-200
+              ${value?.name === item.name
+                ? "shadow-lg transform scale-105"
+                : "hover:shadow-md hover:-translate-y-1 hover:bg-hover"} 
+            `}
           >
-            <p>{item.name}</p>
-            <p className="text-sm text-gray-500">₹{item.price}</p>
+            {item.icon && (
+              <img
+                src={item.icon}
+                alt={`${item.name} icon`}
+                className="w-12 h-12 mb-2"
+              />
+            )}
+            <p className="font-semibold">{item.name}</p>
+            <p className="text-xs">{item.label}</p>
           </button>
         ))}
       </div>
     </div>
   );
 }
-

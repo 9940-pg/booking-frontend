@@ -7,13 +7,17 @@ export default function DateSelector({ date, slot, onSelect, onProceed }) {
   const slots = ["10:00 AM", "01:00 PM", "04:00 PM", "07:30 PM"];
 
   return (
-    <div className="max-w-3xl mx-auto space-y-6">
-
+    <div className="max-w-3xl mx-auto space-y-6" style={{ color: "var(--color-text)" }}>
       <h2 className="text-xl font-semibold">Select Date</h2>
 
       <input
         type="date"
         className="border p-3 rounded w-full"
+        style={{
+          backgroundColor: "var(--color-secondary)",
+          color: "var(--color-text)",
+          borderColor: "var(--color-text)",
+        }}
         value={selectedDate}
         onChange={(e) => {
           setSelectedDate(e.target.value);
@@ -29,11 +33,14 @@ export default function DateSelector({ date, slot, onSelect, onProceed }) {
               setSelectedSlot(time);
               onSelect(selectedDate, time);
             }}
-            className={`border p-3 rounded text-center ${
-              selectedSlot === time
-                ? "bg-black text-white"
-                : "hover:border-black"
-            }`}
+            style={{
+              backgroundColor:
+                selectedSlot === time ? "var(--color-primary)" : "var(--color-bg)",
+              color:
+                selectedSlot === time ? "var(--color-secondary)" : "var(--color-text)",
+              borderColor: "var(--color-text)",
+            }}
+            className="border p-3 rounded text-center hover:bg-hover"
           >
             {time}
           </button>
@@ -43,11 +50,17 @@ export default function DateSelector({ date, slot, onSelect, onProceed }) {
       <button
         disabled={!selectedDate || !selectedSlot}
         onClick={onProceed}
-        className={`w-full py-3 rounded ${
-          selectedDate && selectedSlot
-            ? "bg-black text-white"
-            : "bg-gray-300 text-gray-500"
-        }`}
+        style={{
+          backgroundColor:
+            selectedDate && selectedSlot
+              ? "var(--color-primary)"
+              : "var(--color-hover)",
+          color:
+            selectedDate && selectedSlot
+              ? "var(--color-secondary)"
+              : "var(--color-text)",
+        }}
+        className="w-full py-3 rounded text-lg"
       >
         Proceed
       </button>
