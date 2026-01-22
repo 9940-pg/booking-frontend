@@ -1,104 +1,96 @@
-import { useEffect, useState } from "react";
-import {
-  getService,
-  getAvailableSlots,
-  createBooking
-} from "../../api/bookingApi";
-
+import { useState } from "react";
 
 import DateSelector from "./DateSelector";
-import TimeSlots from "./TimeSlots";
 import BookingForm from "./BookingForm";
+import BookingSummary from "./BookingSummary";
+import OccasionSelector from "./OccasionSelector";
 
-export default function BookingApp({ service }) {
-  const [serviceData, setServiceData] = useState(null);
-  const [step, setStep] = useState("date");
+export default function BookingApp({ serviceData }) {
+  const [step, setStep] = useState("select");
 
   const [date, setDate] = useState("");
-  const [slots, setSlots] = useState([]);
-  const [selectedSlot, setSelectedSlot] = useState(null);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    getService(service).then(setServiceData);
-  }, [service]);
-
-  useEffect(() => {
-    if (date && serviceData) {
-      getAvailableSlots(serviceData.id, date).then((slots) => {
-        setSlots(slots);
-        setStep("slot");
-      });
-    }
-  }, [date, serviceData]);
-
-
-  if (!serviceData) {
-    return <p className="text-center mt-10">Loading service...</p>;
-  }
+  const [slot, setSlot] = useState("");
+  const [userInfo, setUserInfo] = useState({});
+  const [occasion, setOccasion] = useState("");
 
   return (
-    <div className="max-w-xl mx-auto mt-10 p-6 border rounded-lg shadow">
-      <h2 className="text-2xl font-semibold mb-2">
-        {serviceData.name}
-      </h2>
+    <div className="max-w-6xl mx-auto mt-10 px-4">
 
-      <p className="text-gray-600 mb-6">
-        {serviceData.duration} mins · ₹{serviceData.price}
-      </p>
-
-      {step === "date" && (
-        <DateSelector value={date} onChange={setDate} />
+      {/* STEP 1 — DATE & TIME */}
+      {step === "select" && (
+        <DateSelector
+          date={date}
+          slot={slot}
+          onSelect={(d, s) => {
+            setDate(d);
+            setSlot(s);
+          }}
+          onProceed={() => setStep("form")}
+        />
       )}
 
-   {step === "slot" && (
-  <TimeSlots
-    slots={slots}
-    onSelect={(slot) => {
-      setSelectedSlot(slot);
-      setStep("details");
-    }}
-  />
-)}
+      {/* STEP 2 — USER INFO */}
+      {step === "form" && (
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+          {/* LEFT */}
+          <div className="lg:col-span-2 space-y-6">
+
+            {/* Overview bar */}
+            <div className="border rounded p-4 bg-gray-50">
+              <p><strong>Date:</strong> {date}</p>
+              <p><strong>Time:</strong> {slot}</p>
+            </div>
+
+            <BookingForm
+              value={userInfo}
+              onChange={(data) => setUserInfo(data)}
+            />
+          </div>
+
+          {/* RIGHT */}
+          <div>
+            <BookingSummary
+              serviceData={serviceData}
+              date={date}
+              selectedSlot={slot}
+              formData={userInfo}
+              onProceed={() => setStep("occasion")}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* STEP 3 — OCCASION */}
+      {step === "occasion" && (
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+          {/* LEFT */}
+          <div className="lg:col-span-2">
+           <OccasionSelector
+  value={occasion}
+  onChange={setOccasion} // now it will be {name, price}
+/>
+          </div>
+
+          {/* RIGHT */}
+          <div>
+ 
+<BookingSummary
+  serviceData={serviceData}
+  date={date}
+  selectedSlot={slot}
+  formData={userInfo}
+  occasion={occasion}
+  buttonLabel="Next"
+  onProceed={() => alert("Final step reached or submit form")}
+/>
 
 
+          </div>
+        </div>
+      )}
 
-{step === "details" && (
-  <BookingForm
-    onSubmit={async (userData) => {
-      try {
-        setError("");
-        await createBooking({
-          serviceId: serviceData.id,
-          date,
-          time: selectedSlot,
-          ...userData,
-        });
-        setStep("success");
-      } catch (err) {
-        setError(err.message);
-      }
-    }}
-  />
-)}
-
-{error && (
-  <p className="text-red-600 mt-3 text-center">
-    {error}
-  </p>
-)}
-
-
-   {step === "success" && (
-  <div className="text-center space-y-3">
-    <h3 className="text-xl font-semibold text-green-600">
-      Booking Confirmed
-    </h3>
-    <p className="text-gray-600">
-      You will receive confirmation shortly.
-    </p>
-  </div>
-)}
     </div>
   );
 }

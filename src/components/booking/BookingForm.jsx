@@ -1,61 +1,47 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function BookingForm({ onSubmit }) {
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
+export default function BookingForm({ value, onChange }) {
+  const [form, setForm] = useState({
+    name: "",
+    phone: "",
+    email: "",
+  });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  useEffect(() => {
+    onChange(form);
+  }, [form]);
 
-    try {
-      await onSubmit({
-        name,
-        phone,
-        email,
-      });
-    } finally {
-      setLoading(false);
-    }
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="border rounded p-6 space-y-4">
+      <h2 className="text-lg font-semibold">Your Details</h2>
+
       <input
-        type="text"
+        name="name"
         placeholder="Full Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        required
-        className="w-full border px-3 py-2 rounded"
+        className="border p-3 rounded w-full"
+        onChange={handleChange}
       />
 
       <input
-        type="tel"
-        placeholder="Phone Number"
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-        required
-        className="w-full border px-3 py-2 rounded"
+        name="phone"
+        placeholder="Mobile Number"
+        className="border p-3 rounded w-full"
+        onChange={handleChange}
       />
 
       <input
-        type="email"
+        name="email"
         placeholder="Email Address"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className="w-full border px-3 py-2 rounded"
+        className="border p-3 rounded w-full"
+        onChange={handleChange}
       />
-
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full bg-black text-white py-2 rounded disabled:opacity-50"
-      >
-        {loading ? "Booking..." : "Confirm Booking"}
-      </button>
-    </form>
+    </div>
   );
 }
