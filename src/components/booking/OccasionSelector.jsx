@@ -19,24 +19,16 @@ export default function OccasionSelector({ value, onChange }) {
         Select Occasion
       </h2>
 
-      {/* Grid with 4 columns always */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {occasions.map((item) => (
           <button
             key={item.name}
             onClick={() => onChange(item)}
-            style={{
-              backgroundColor:
-                value?.name === item.name ? "var(--color-primary)" : "var(--color-bg)",
-              color:
-                value?.name === item.name ? "var(--color-secondary)" : "var(--color-text)",
-              borderColor: "var(--color-text)",
-            }}
-            className={`border p-4 rounded text-center flex flex-col items-center
+            className={`p-4 rounded text-center flex flex-col items-center
               transition-all duration-200
-              ${value?.name === item.name
-                ? "shadow-lg transform scale-105"
-                : "hover:shadow-md hover:-translate-y-1 hover:bg-hover"} 
+              ${value?.name === item.name 
+                ? "bg-black text-white shadow-lg transform scale-105" 
+                : "hover:bg-gray-100 hover:shadow-md hover:border hover:border-gray-300"} 
             `}
           >
             {item.icon && (
