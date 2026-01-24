@@ -1,11 +1,24 @@
 @import "tailwindcss";
 
-
 :root {
-  --color-primary: #000000;      /* black for buttons, headings */
-  --color-secondary: #ffffff;    /* white text on primary bg */
-  --color-accent: #ff6f61;       /* highlight, hover, accent elements */
-  --color-bg: #f9f9f9;           /* page background */
-  --color-text: #333333;         /* normal text */
-  --color-hover: #e5e5e5;        /* hover background */
+  --radius: 10px;
+
+  /* 🔴 Brand Red System */
+  --color-primary: #ef4444;   /* Main Red (borders, buttons, highlights) */
+  --color-hover:   #dc2626;   /* Hover / Active */
+
+  /* ⚪ Base Colors */
+  --color-bg: #ffffff;
+  --color-text: #111827e0;
+  --color-secondary: #ffffff;
+}
+
+
+/* 🔵 Remove browser blue autofill background */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px var(--color-secondary) inset !important;
+  -webkit-text-fill-color: var(--color-text) !important;
+  transition: background-color 5000s ease-in-out 0s;
 }

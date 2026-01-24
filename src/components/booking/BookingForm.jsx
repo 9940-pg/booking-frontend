@@ -20,46 +20,45 @@ export default function BookingForm({ value, onChange }) {
 
   return (
     <div
-      className="border rounded p-6 space-y-4"
-      style={{ backgroundColor: "var(--color-bg)", color: "var(--color-text)" }}
+      className="
+        border p-6 space-y-4
+        rounded-[var(--radius)]
+        border-[var(--color-primary)]
+        bg-[var(--color-bg)]
+        text-[var(--color-text)]
+      "
     >
-      <h2 className="text-lg font-semibold">Your Details</h2>
+      <h2 className="text-lg font-semibold text-[var(--color-primary)]">
+        Your Details
+      </h2>
 
-      <input
-        name="name"
-        placeholder="Full Name"
-        onChange={handleChange}
-        style={{
-          backgroundColor: "var(--color-secondary)",
-          color: "var(--color-text)",
-          borderColor: "var(--color-text)",
-        }}
-        className="p-3 rounded w-full"
-      />
+  {/* Full Name */}
+<input
+  name="name"
+  placeholder="Full Name"
+  onChange={handleChange}
+  autoComplete="name"  // ✅ use proper autocomplete
+  className="p-3 w-full border transition rounded-[var(--radius)] bg-[var(--color-secondary)] text-[var(--color-text)] placeholder-gray-400 border-[var(--color-primary)] focus:outline-none focus:border-[var(--color-hover)] focus:ring-2 focus:ring-[var(--color-hover)]/40"
+/>
 
-      <input
-        name="phone"
-        placeholder="Mobile Number"
-        onChange={handleChange}
-        style={{
-          backgroundColor: "var(--color-secondary)",
-          color: "var(--color-text)",
-          borderColor: "var(--color-text)",
-        }}
-        className="p-3 rounded w-full"
-      />
+{/* Phone */}
+<input
+  name="phone"
+  placeholder="Mobile Number"
+  onChange={handleChange}
+  autoComplete="tel"   // ✅ phone autocomplete
+  className="p-3 w-full border transition rounded-[var(--radius)] bg-[var(--color-secondary)] text-[var(--color-text)] placeholder-gray-400 border-[var(--color-primary)] focus:outline-none focus:border-[var(--color-hover)] focus:ring-2 focus:ring-[var(--color-hover)]/40"
+/>
 
-      <input
-        name="email"
-        placeholder="Email Address"
-        onChange={handleChange}
-        style={{
-          backgroundColor: "var(--color-secondary)",
-          color: "var(--color-text)",
-          borderColor: "var(--color-text)",
-        }}
-        className="p-3 rounded w-full"
-      />
+{/* Email */}
+<input
+  name="email"
+  placeholder="Email Address"
+  onChange={handleChange}
+  autoComplete="email" // ✅ email autocomplete
+  className="p-3 w-full border transition rounded-[var(--radius)] bg-[var(--color-secondary)] text-[var(--color-text)] placeholder-gray-400 border-[var(--color-primary)] focus:outline-none focus:border-[var(--color-hover)] focus:ring-2 focus:ring-[var(--color-hover)]/40"
+/>
+
     </div>
   );
 }

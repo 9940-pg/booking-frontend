@@ -1,0 +1,31 @@
+export const cakes = [
+  // ---------- PREMIUM CAKES ----------
+  { id: "p1", type: "premium", name: "Pinata", price: 850, weight: "500gm", eggless: true, img: "https://bnbtplstorageaccount.blob.core.windows.net/addons/cakes/Pinata%20Cake%20850.jpg" },
+  { id: "p2", type: "premium", name: "Magenta", price: 1200, weight: "1kg", eggless: true, img: "https://bnbtplstorageaccount.blob.core.windows.net/specialcakes/Magenta%201kg%201200.jpg" },
+  { id: "p3", type: "premium", name: "Frozen", price: 1200, weight: "1kg", eggless: true, img: "https://bnbtplstorageaccount.blob.core.windows.net/specialcakes/Frozen%20Cake%201kg%201200.jpg" },
+  { id: "p4", type: "premium", name: "Eternal", price: 1200, weight: "1kg", eggless: true, img: "https://bnbtplstorageaccount.blob.core.windows.net/specialcakes/Eternal%20Cake%201kg%201200.jpg" },
+  { id: "p5", type: "premium", name: "Blue Skies", price: 1200, weight: "1kg", eggless: true, img: "https://bnbtplstorageaccount.blob.core.windows.net/specialcakes/Blue%20Skies%201kg%201200.jpg" },
+  { id: "p6", type: "premium", name: "Lavish", price: 1200, weight: "1kg", eggless: true, img: "https://bnbtplstorageaccount.blob.core.windows.net/specialcakes/Lavish%20Cake%201kg%201200.jpg" },
+  { id: "p7", type: "premium", name: "Mocha Melt", price: 1600, weight: "1kg", eggless: false, img: "https://bnbtplstorageaccount.blob.core.windows.net/specialcakes/Mocha%20Melt%201kg%201600.jpg" },
+  { id: "p8", type: "premium", name: "Rose Drop", price: 1350, weight: "1kg", eggless: true, img: "https://bnbtplstorageaccount.blob.core.windows.net/specialcakes/RoseDrop.png" },
+  { id: "p9", type: "premium", name: "Rose Drop 2", price: 1350, weight: "1kg", eggless: true, img: "https://bnbtplstorageaccount.blob.core.windows.net/specialcakes/RoseDrop2.png" },
+  { id: "p10", type: "premium", name: "Tokyo", price: 1500, weight: "1kg", eggless: true, img: "https://bnbtplstorageaccount.blob.core.windows.net/specialcakes/tokyo.png" },
+  { id: "p11", type: "premium", name: "Wills Cake", price: 3200, weight: "2.5kg", eggless: true, img: "https://bnbtplstorageaccount.blob.core.windows.net/specialcakes/Wills%20Cake%202.5kg%203200.jpg" },
+
+  // ---------- STANDARD CAKES ----------
+  { id: "s1", type: "standard", name: "Vanilla", price: 699, weight: "500gm", eggless: true, img: "https://bnbtplstorageaccount.blob.core.windows.net/addons/cakes/vanillacake.jpg" },
+  { id: "s2", type: "standard", name: "Strawberry", price: 699, weight: "500gm", eggless: true, img: "https://bnbtplstorageaccount.blob.core.windows.net/addons/cakes/strawberrycake.jpg" },
+  { id: "s3", type: "standard", name: "Butterscotch", price: 749, weight: "500gm", eggless: false, img: "https://bnbtplstorageaccount.blob.core.windows.net/addons/cakes/butterscotchcake.jpg" },
+  { id: "s4", type: "standard", name: "Pineapple", price: 699, weight: "500gm", eggless: true, img: "https://bnbtplstorageaccount.blob.core.windows.net/addons/cakes/pineapplecake.jpg" },
+  { id: "s5", type: "standard", name: "Mango Crush", price: 799, weight: "500gm", eggless: true, img: "https://bnbtplstorageaccount.blob.core.windows.net/addons/cakes/mangocrushcake.png" },
+  { id: "s6", type: "standard", name: "Chocolate", price: 799, weight: "500gm", eggless: true, img: "https://bnbtplstorageaccount.blob.core.windows.net/addons/cakes/chocolatecake.jpg" },
+  { id: "s7", type: "standard", name: "Dark Chocolate", price: 849, weight: "500gm", eggless: false, img: "https://bnbtplstorageaccount.blob.core.windows.net/addons/cakes/darkchoclatecake.jpg" },
+  { id: "s8", type: "standard", name: "Black Forest", price: 699, weight: "500gm", eggless: true, img: "https://bnbtplstorageaccount.blob.core.windows.net/addons/cakes/blackforestcake.jpg" },
+  { id: "s9", type: "standard", name: "White Forest", price: 699, weight: "500gm", eggless: true, img: "https://bnbtplstorageaccount.blob.core.windows.net/addons/cakes/whiteforestcake.jpg" },
+  { id: "s10", type: "standard", name: "Choco Chips", price: 749, weight: "500gm", eggless: false, img: "https://bnbtplstorageaccount.blob.core.windows.net/addons/cakes/chocochipscake.jpg" },
+  { id: "s11", type: "standard", name: "Blueberry", price: 799, weight: "500gm", eggless: true, img: "https://bnbtplstorageaccount.blob.core.windows.net/addons/cakes/blueberrycake.jpg" },
+  { id: "s12", type: "standard", name: "Dry Fruit", price: 899, weight: "500gm", eggless: true, img: "https://bnbtplstorageaccount.blob.core.windows.net/addons/cakes/dryfruitcake.jpg" },
+  { id: "s13", type: "standard", name: "Almond Crunch", price: 899, weight: "500gm", eggless: true, img: "https://bnbtplstorageaccount.blob.core.windows.net/addons/cakes/almondcrunchcake.jpeg" },
+  { id: "s14", type: "standard", name: "Chocolate Truffle", price: 899, weight: "500gm", eggless: false, img: "https://bnbtplstorageaccount.blob.core.windows.net/addons/cakes/chocolatetrufflecake.png" },
+  { id: "s15", type: "standard", name: "Chocolate Coffee", price: 949, weight: "500gm", eggless: false, img: "https://bnbtplstorageaccount.blob.core.windows.net/addons/cakes/choclatecoffeecake.jpg" },
+];

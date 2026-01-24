@@ -15,33 +15,38 @@ const occasions = [
 export default function OccasionSelector({ value, onChange }) {
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-semibold" style={{ color: "var(--color-text)" }}>
+      <h2 className="text-xl font-semibold text-[var(--color-primary)]">
         Select Occasion
       </h2>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        {occasions.map((item) => (
-          <button
-            key={item.name}
-            onClick={() => onChange(item)}
-            className={`p-4 rounded text-center flex flex-col items-center
-              transition-all duration-200
-              ${value?.name === item.name 
-                ? "bg-black text-white shadow-lg transform scale-105" 
-                : "hover:bg-gray-100 hover:shadow-md hover:border hover:border-gray-300"} 
-            `}
-          >
-            {item.icon && (
-              <img
-                src={item.icon}
-                alt={`${item.name} icon`}
-                className="w-12 h-12 mb-2"
-              />
-            )}
-            <p className="font-semibold">{item.name}</p>
-            <p className="text-xs">{item.label}</p>
-          </button>
-        ))}
+        {occasions.map((item) => {
+          const selected = value?.name === item.name;
+
+          return (
+            <button
+              key={item.name}
+              onClick={() => onChange(item)}
+              className={`
+                p-4 rounded-xl text-center flex flex-col items-center transition-all duration-200
+                ${selected
+                  ? "bg-[var(--color-primary)]/20 text-[var(--color-text)] shadow-lg scale-105 ring-2 ring-[var(--color-primary)]"
+                  : "bg-[var(--color-bg)] text-[var(--color-text)] hover:bg-[var(--color-bg)]/100 hover:ring-2 hover:ring-[var(--color-primary)]/100 hover:scale-[1.02]"
+                }
+              `}
+            >
+              {item.icon && (
+                <img
+                  src={item.icon}
+                  alt={`${item.name} icon`}
+                  className="w-12 h-12 mb-2"
+                />
+              )}
+              <p className="font-semibold">{item.name}</p>
+              <p className="text-xs">{item.label}</p>
+            </button>
+          );
+        })}
       </div>
     </div>
   );

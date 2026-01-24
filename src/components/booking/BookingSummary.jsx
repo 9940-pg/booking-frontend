@@ -1,67 +1,113 @@
+import { useState } from "react";
+
 export default function BookingSummary({
   serviceData,
-  date,
-  selectedSlot,
-  formData,
   occasion,
-  buttonLabel = "Proceed",
+  cake,
+  addons = [],
+  buttonLabel = "Next",
   onProceed,
 }) {
-  const isFormReady =
-    date &&
-    selectedSlot &&
-    formData?.name &&
-    formData?.phone &&
-    formData?.email;
+  const [open, setOpen] = useState(true);
+  const [showPopup, setShowPopup] = useState(false);
 
-  const isOccasionReady = occasion;
+  const basePrice = serviceData?.price || 1799;
+  const decoration = occasion?.price || 0;
 
-  const canProceed =
-    buttonLabel === "Proceed" ? isFormReady : isOccasionReady;
+  const cakePrice = cake ? cake.price * (cake.qty || 1) : 0;
+  const addonsPrice = addons.reduce((sum, a) => sum + a.price, 0);
 
-  const servicePrice = serviceData?.price || 1999;
-  const occasionPrice = occasion?.price || 0;
-  const totalPrice = servicePrice + occasionPrice;
+  const total = basePrice + decoration + cakePrice + addonsPrice;
+  const advance = 750;
+  const balance = total - advance;
+
+  const handleProceed = () => {
+    if (onProceed) onProceed();
+    setShowPopup(true);
+    setTimeout(() => setShowPopup(false), 2500);
+  };
 
   return (
-    <div
-      className="border rounded p-5 sticky top-6 space-y-4"
-      style={{ backgroundColor: "var(--color-bg)", color: "var(--color-text)" }}
-    >
-      <h3 className="font-semibold text-lg">Booking Summary</h3>
+    <div className="sticky top-6">
+      <div className="bg-[var(--color-bg)] rounded-[var(--radius)] shadow-md border border-[var(--color-primary)] overflow-hidden">
 
-      <p><strong>Date:</strong> {date || "-"}</p>
-      <p><strong>Time:</strong> {selectedSlot || "-"}</p>
+        {/* HEADER */}
+        <button
+          onClick={() => setOpen(!open)}
+          className="w-full flex justify-between items-center px-5 py-4 border-b border-[var(--color-primary)]"
+        >
+          <h3 className="font-semibold text-lg text-[var(--color-primary)]">Booking Summary</h3>
+          <span className={`transition-transform duration-300 ${open ? "rotate-180" : ""}`}>▾</span>
+        </button>
 
-      {formData?.name && <p><strong>Name:</strong> {formData.name}</p>}
-      {formData?.phone && <p><strong>Phone:</strong> {formData.phone}</p>}
-      {formData?.email && <p><strong>Email:</strong> {formData.email}</p>}
+        {/* BODY */}
+        <div className={`transition-all duration-300 overflow-hidden ${open ? "max-h-[600px]" : "max-h-0"}`}>
+          <div className="px-5 py-4 space-y-3 text-sm">
 
-      {occasion && (
-        <p>
-          <strong>Occasion:</strong> {occasion.name} - ₹{occasion.price}
-        </p>
+            <Row label="Base Price" value={`₹${basePrice}`} valueColor="var(--color-primary)" />
+            {decoration > 0 && <Row label="Decoration" value={`₹${decoration}`} valueColor="var(--color-primary)" />}
+            {cake && <Row label="Cake" value={`₹${cakePrice}`} valueColor="var(--color-primary)" />}
+            {addons.length > 0 && <Row label="Add-ons" value={`₹${addonsPrice}`} valueColor="var(--color-primary)" />}
+
+            {/* Date & Time */}
+            {serviceData?.date && (
+              <Row label="Date" value={serviceData.date} valueColor="var(--color-primary)" />
+            )}
+            {serviceData?.time && (
+              <Row label="Time" value={serviceData.time} valueColor="var(--color-primary)" />
+            )}
+
+            <hr className="border-[var(--color-primary)]" />
+            <Row label="Advance amount payable" value={`- ₹${advance}`} sub="Including ₹50 convenience fee" valueColor="var(--color-primary)" />
+            <hr className="border-[var(--color-primary)]" />
+            <Row label="Balance Amount" value={`₹${balance}`} sub="To be paid at venue" valueColor="var(--color-primary)" />
+
+          </div>
+
+          {/* BUTTON */}
+          <div className="p-4 border-t border-[var(--color-primary)]">
+            <button
+              onClick={handleProceed}
+              className="w-full bg-[var(--color-primary)] hover:bg-[var(--color-hover)] text-[var(--color-bg)] py-3 rounded-[var(--radius)] font-semibold transition"
+            >
+              {buttonLabel}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* POPUP */}
+      {showPopup && (
+        <div className="fixed bottom-5 left-1/2 -translate-x-1/2 bg-[var(--color-primary)]/100 rounded-[var(--radius)] text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-fadeInOut">
+          Successfully placed order!
+        </div>
       )}
 
-      <hr />
+      <style jsx>{`
+        @keyframes fadeInOut {
+          0% { opacity: 0; transform: translateY(20px); }
+          10% { opacity: 1; transform: translateY(0); }
+          90% { opacity: 1; transform: translateY(0); }
+          100% { opacity: 0; transform: translateY(-20px); }
+        }
+        .animate-fadeInOut {
+          animation: fadeInOut 2.5s ease forwards;
+        }
+      `}</style>
+    </div>
+  );
+}
 
-      <p className="text-lg font-semibold">
-        Total: ₹{totalPrice}
-      </p>
-
-      <button
-        disabled={!canProceed}
-        onClick={onProceed}
-        style={{
-          backgroundColor: canProceed
-            ? "var(--color-primary)"
-            : "var(--color-hover)",
-          color: canProceed ? "var(--color-secondary)" : "var(--color-text)",
-        }}
-        className="w-full py-3 rounded text-lg"
-      >
-        {buttonLabel}
-      </button>
+function Row({ label, value, sub, valueColor }) {
+  return (
+    <div>
+      <div className="flex justify-between">
+        <span className="text-[var(--color-text)]">{label}</span>
+        <span className="font-semibold" style={{ color: valueColor || "var(--color-text)" }}>
+          {value}
+        </span>
+      </div>
+      {sub && <p className="text-xs text-gray-500 mt-1">{sub}</p>}
     </div>
   );
 }
